@@ -1,0 +1,43 @@
+<%- include('partials/header') -%>
+
+    <div class="welcome" style="position: relative;">
+        <h3 style="color:antiquewhite;"><br> Thank you for being an essential part of the movement to beat rare cancers. Together forward.</h3><br>
+        <button class="button" id="rzp-button1" style="vertical-align:middle"><span>DONATE </span></button>
+    </div>
+
+    </div>
+    </header>
+
+    <script src="https://unpkg.com/axios@0.21.1/dist/axios.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        axios.post('/order').then((info) => {
+
+
+            let options = {
+                "key": "rzp_test_20RxjMGYnUVE1v", // Enter the Key ID generated from the Dashboard
+                "name": "Sparks Donation",
+                "description": "Your donation can save a life.",
+                "image": "/images/logo.png",
+                "order_id": info.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "callback_url": "/is-order-complete",
+                "notes": {
+                    "address": "SPARKS FOUNDATION"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+            document.getElementById('rzp-button1').onclick = function(e) {
+                rzp1.open();
+                e.preventDefault();
+            }
+
+        });
+    </script>
+
+    </body>
+
+    </html>
