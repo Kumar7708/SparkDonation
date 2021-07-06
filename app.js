@@ -1,6 +1,7 @@
 const express = require("express");
 const Razorpay = require("razorpay");
 const ejs = require("ejs");
+const port = 3000;
 
 const app = express();
 
@@ -14,10 +15,6 @@ let options = {
     currency: "INR",
     receipt: "order_rcptid_11"
 };
-
-razorpay.orders.create(options, function(err, order) {
-    console.log(order);
-});
 
 app.set('views', 'views')
 app.set('view engine', 'ejs');
@@ -66,6 +63,6 @@ app.post('/is-order-complete', function(req, res) {
 
 
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || port, function() {
     console.log("Server started on port 3000");
 });
